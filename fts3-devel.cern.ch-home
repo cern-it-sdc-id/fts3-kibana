@@ -1,0 +1,240 @@
+{
+  "title": "fts3-devel.cern.ch",
+  "services": {
+    "query": {
+      "list": {
+        "0": {
+          "id": 0,
+          "type": "topN",
+          "query": "command:fts_url_copy",
+          "alias": "fts_url_copy executions",
+          "color": "#7EB26D",
+          "pin": false,
+          "enable": true,
+          "field": "@fields.host",
+          "size": 8,
+          "union": "AND"
+        },
+        "1": {
+          "id": 1,
+          "type": "topN",
+          "query": "level:ERR",
+          "alias": "",
+          "color": "#BF1B00",
+          "pin": true,
+          "enable": true,
+          "field": "@fields.host",
+          "size": 8,
+          "union": "AND"
+        },
+        "4": {
+          "id": 4,
+          "type": "lucene",
+          "query": "_type:fts3_bringonline OR _type:fts3_server OR _type:httpd_access",
+          "alias": "EVENTS",
+          "color": "#3F6833",
+          "pin": true,
+          "enable": true
+        },
+        "5": {
+          "id": 5,
+          "type": "topN",
+          "query": "_type:fts3_bringonline AND @fields.task:DELETION",
+          "alias": "DELETION",
+          "color": "#E24D42",
+          "pin": true,
+          "enable": true,
+          "field": "@fields.host",
+          "size": 8,
+          "union": "AND"
+        },
+        "6": {
+          "id": 6,
+          "color": "#BA43A9",
+          "alias": "Signals",
+          "pin": true,
+          "type": "lucene",
+          "enable": true,
+          "query": "@fields.message:Caught signal"
+        }
+      },
+      "ids": [
+        4
+      ]
+    },
+    "filter": {
+      "list": {
+        "0": {
+          "type": "time",
+          "field": "@timestamp",
+          "from": "now-24h",
+          "to": "now",
+          "mandate": "must",
+          "active": true,
+          "alias": "",
+          "id": 0
+        }
+      },
+      "ids": [
+        0
+      ]
+    }
+  },
+  "rows": [
+    {
+      "title": "",
+      "height": "500px",
+      "editable": true,
+      "collapse": false,
+      "collapsable": false,
+      "panels": [
+        {
+          "error": false,
+          "span": 6,
+          "editable": true,
+          "type": "text",
+          "loadingEditor": false,
+          "mode": "markdown",
+          "content": "## Welcome to the FTS3 Development Cluster Dashboard\n\nYou can have a look at raw events next to this box on this same page, but you also can access\nmore digested information in the following dedicated dashboards:\n\n* [Daemons Dashboard](#/dashboard/elasticsearch/fts3-devel.cern.ch%20-%20Daemons)\n* [REST Dashboard](#/dashboard/elasticsearch/fts3-devel.cern.ch%20-%20REST)\n* [Error Diagnosis Dashboard](#/dashboard/elasticsearch/fts3-devel.cern.ch%20-%20Errors)",
+          "style": {}
+        },
+        {
+          "error": false,
+          "span": 6,
+          "editable": true,
+          "type": "table",
+          "loadingEditor": false,
+          "size": 30,
+          "pages": 5,
+          "offset": 0,
+          "sort": [
+            "@timestamp",
+            "desc"
+          ],
+          "overflow": "min-height",
+          "fields": [
+            "@timestamp",
+            "@fields.host",
+            "_type",
+            "@message"
+          ],
+          "highlight": [],
+          "sortable": true,
+          "header": true,
+          "paging": true,
+          "field_list": false,
+          "all_fields": false,
+          "trimFactor": 300,
+          "localTime": true,
+          "timeField": "@timestamp",
+          "spyable": true,
+          "queries": {
+            "mode": "all",
+            "ids": [
+              0,
+              1,
+              4,
+              5,
+              6
+            ]
+          },
+          "style": {
+            "font-size": "9pt"
+          },
+          "normTimes": true,
+          "title": "Last events"
+        }
+      ],
+      "notice": false
+    }
+  ],
+  "editable": true,
+  "failover": false,
+  "index": {
+    "interval": "day",
+    "pattern": "[fts3-devel-]YYYY-MM-DD",
+    "default": "NO_TIME_FILTER_OR_INDEX_PATTERN_NOT_MATCHED",
+    "warm_fields": true
+  },
+  "style": "light",
+  "panel_hints": true,
+  "pulldowns": [
+    {
+      "type": "query",
+      "collapse": true,
+      "notice": false,
+      "query": "*",
+      "pinned": true,
+      "history": [
+        "_type:fts3_bringonline OR _type:fts3_server OR _type:httpd_access",
+        "_type:fts3_bringonline AND @fields.task:BRINGONLINE",
+        "_type:fts3_bringonline AND @fields.task:DELETION",
+        "@fields.message:Caught signal",
+        "level:ERR",
+        "command:fts_url_copy",
+        "_type:httpd_access AND @fields.method==PUT",
+        "_type:httpd_access AND @fields.method==GET",
+        "_type:httpd_access AND @fields.method:PUT",
+        "_type:httpd_access"
+      ],
+      "remember": 10,
+      "enable": false
+    },
+    {
+      "type": "filtering",
+      "collapse": true,
+      "notice": true,
+      "enable": false
+    }
+  ],
+  "nav": [
+    {
+      "type": "timepicker",
+      "collapse": false,
+      "notice": false,
+      "status": "Stable",
+      "time_options": [
+        "5m",
+        "15m",
+        "1h",
+        "6h",
+        "12h",
+        "24h",
+        "2d",
+        "7d",
+        "30d"
+      ],
+      "refresh_intervals": [
+        "5s",
+        "10s",
+        "30s",
+        "1m",
+        "5m",
+        "15m",
+        "30m",
+        "1h",
+        "2h",
+        "1d"
+      ],
+      "timefield": "@timestamp",
+      "now": true,
+      "filter_id": 0,
+      "enable": true
+    }
+  ],
+  "loader": {
+    "save_gist": false,
+    "save_elasticsearch": true,
+    "save_local": true,
+    "save_default": true,
+    "save_temp": true,
+    "save_temp_ttl_enable": true,
+    "save_temp_ttl": "30d",
+    "load_gist": true,
+    "load_elasticsearch": true,
+    "load_elasticsearch_size": 20,
+    "load_local": true,
+    "hide": false
+  },
+  "refresh": "30s"
+}
