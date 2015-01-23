@@ -39,7 +39,8 @@
                         "user":    { "type": "string", "index": "not_analyzed" },
                         "vo":      { "type": "string", "index": "not_analyzed" },
                         "surl":    { "type": "string" },
-                        "timestamp": { "type": "date" }
+                        "timestamp": { "type": "date" },
+                        "bulk_size": { "type": "integer" }
                     }
                 }
             }
