@@ -40,7 +40,8 @@
                         "vo":      { "type": "string", "index": "not_analyzed" },
                         "surl":    { "type": "string" },
                         "timestamp": { "type": "date" },
-                        "bulk_size": { "type": "integer" }
+                        "bulk_size": { "type": "integer" },
+                        "nfiles": { "type": "integer" },
                     }
                 }
             }
