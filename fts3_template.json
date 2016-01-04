@@ -2,6 +2,13 @@
     "template": "fts3*",
     "mappings": {
         "fts3_server": {
+            "_timestamp": {
+                "enabled": true,
+                "path": "ts"
+            },
+            "_ttl": {
+                "enabled": true
+            },
             "properties": {
                 "@fields": {
                     "type": "object",
@@ -22,6 +29,13 @@
             }
         },
         "fts3_bringonline": {
+            "_timestamp": {
+                "enabled": true,
+                "path": "ts"
+            },
+            "_ttl": {
+                "enabled": true
+            },
             "properties": {
                 "@fields": {
                     "type": "object",
@@ -41,12 +55,19 @@
                         "surl":    { "type": "string" },
                         "timestamp": { "type": "date" },
                         "bulk_size": { "type": "integer" },
-                        "nfiles": { "type": "integer" },
+                        "nfiles": { "type": "integer" }
                     }
                 }
             }
         },
         "httpd_access": {
+            "_timestamp": {
+                "enabled": true,
+                "path": "ts"
+            },
+            "_ttl": {
+                "enabled": true
+            },
             "properties": {
                 "@fields": {
                     "type": "object",
