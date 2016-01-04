@@ -19,11 +19,12 @@
                         "host":    { "type": "string", "index": "not_analyzed" },
                         "level":   { "type": "string" },
                         "line":    { "type": "integer" },
-                        "logtime": { "type": "date", "format": "E MMM dd HH:mm:ss yyyy" },
+                        "logtime": { "type": "date", "format": "dd/MMM/yyyy:HH:mm:ss Z||E MMM dd HH:mm:ss yyyy" },
                         "message": { "type": "string", "index": "not_analyzed" },
                         "method":  { "type": "string" },
                         "source":  { "type": "string", "index": "not_analyzed" },
-                        "timestamp": { "type": "date" }
+                        "timestamp": { "type": "date", "format": "dateOptionalTime" },
+                        "clientip": { "type": "ip" }
                     }
                 }
             }
@@ -45,7 +46,7 @@
                         "host":    { "type": "string", "index": "not_analyzed" },
                         "level":   { "type": "string" },
                         "line":    { "type": "integer" },
-                        "logtime": { "type": "date", "format": "E MMM dd HH:mm:ss yyyy" },
+                        "logtime": { "type": "date", "format": "dd/MMM/yyyy:HH:mm:ss Z||E MMM dd HH:mm:ss yyyy" },
                         "message": { "type": "string", "index": "not_analyzed" },
                         "method":  { "type": "string" },
                         "source":  { "type": "string", "index": "not_analyzed" },
@@ -53,7 +54,7 @@
                         "user":    { "type": "string", "index": "not_analyzed" },
                         "vo":      { "type": "string", "index": "not_analyzed" },
                         "surl":    { "type": "string" },
-                        "timestamp": { "type": "date" },
+                        "timestamp": { "type": "date", "format": "dateOptionalTime" },
                         "bulk_size": { "type": "integer" },
                         "nfiles": { "type": "integer" }
                     }
@@ -80,12 +81,32 @@
                         "host":  { "type": "string", "index": "not_analyzed" },
                         "httpversion": { "type": "string", "index": "not_analyzed" },
                         "ident": { "type": "string", "index": "not_analyzed" },
-                        "logtime": { "type": "date", "format": "dd/MMM/yyyy:HH:mm:ss Z" },
-                        "method": { "type": "string", "index": "not_analyzed" },
+                        "logtime": { "type": "date", "format": "dd/MMM/yyyy:HH:mm:ss Z||E MMM dd HH:mm:ss yyyy" },
+                        "method": { "type": "string" },
                         "requesttime": { "type": "integer" },
                         "resource": { "type": "string" },
                         "response": { "type": "integer" },
-                        "timestamp": { "type": "date" }
+                        "timestamp": { "type": "date", "format": "dateOptionalTime" }
+                    }
+                }
+            }
+        },
+        "fts3_rest": {
+            "_timestamp": {
+                "enabled": true,
+                "path": "ts"
+            },
+            "_ttl": {
+                "enabled": true
+            },
+            "properties": {
+                "@fields": {
+                    "type": "object",
+                    "dynamic": true,
+                    "path": "full",
+                    "properties": {
+                        "host": { "type": "string", "index": "not_analyzed" },
+                        "timestamp": { "type": "date", "format": "dateOptionalTime" }
                     }
                 }
             }
